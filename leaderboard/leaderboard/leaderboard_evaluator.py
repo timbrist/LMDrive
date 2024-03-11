@@ -404,17 +404,21 @@ class LeaderboardEvaluator(object):
         route_indexer = RouteIndexer(args.routes, args.scenarios, args.repetitions)
 
         if args.resume:
+            print("Enter args resume")
             route_indexer.resume(args.checkpoint)
             self.statistics_manager.resume(args.checkpoint)
         else:
+            print("Enter Clear record")
             self.statistics_manager.clear_record(args.checkpoint)
             route_indexer.save_state(args.checkpoint)
 
         while route_indexer.peek():
+            print("Enter route_indexer")
             # setup
             config = route_indexer.next()
 
             # run
+            print("Start to load and run scenario!!!")
             self._load_and_run_scenario(args, config)
 
             for obj in gc.get_objects():
@@ -425,6 +429,7 @@ class LeaderboardEvaluator(object):
                     pass
 
             route_indexer.save_state(args.checkpoint)
+            print("End of  route_indexer")
 
         # save global statistics
         print("\033[1m> Registering the global statistics\033[0m")
@@ -489,4 +494,5 @@ def main():
 
 
 if __name__ == '__main__':
+    print("!!!! Let's start it ....")
     main()
