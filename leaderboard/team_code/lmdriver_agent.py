@@ -77,9 +77,9 @@ class DisplayInterface(object):
         pygame.init()
         pygame.font.init()
         self._clock = pygame.time.Clock()
-        self._display = pygame.display.set_mode(
-            (self._width, self._height), pygame.HWSURFACE | pygame.DOUBLEBUF
-        )
+        # self._display = pygame.display.set_mode(
+        #     (self._width, self._height)
+        # )
         pygame.display.set_caption("LMDrive Agent")
 
     def run_interface(self, input_data):
@@ -201,6 +201,10 @@ class LMDriveAgent(autonomous_agent.AutonomousAgent):
         self.sample_rate = self.config.sample_rate * 2 # The frequency of CARLA simulation is 20Hz
 
         print('build model...')
+        print("++++++self.config.preception_model: ", self.config.preception_model)
+        print("++++++self.config.preception_model_ckpt: ",self.config.preception_model_ckpt)
+        print("++++++llm_model=self.config.llm_model: ",self.config.llm_model)
+        print("++++++self.config.agent_use_notice,: ", self.config.agent_use_notice)
         model = model_cls(preception_model=self.config.preception_model,
                           preception_model_ckpt=self.config.preception_model_ckpt,
                           llm_model=self.config.llm_model,
